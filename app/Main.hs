@@ -2,8 +2,69 @@ module Main where
 
 import Lib
 
-main :: IO ()
-main = someFunc
+type Posicao   = (Int ,Int)
+data Tabuleiro = Tabuleiro
+    { celulas :: [[Char]]
+    , largura :: Int
+    , altura  :: Int
+    } deriving (Show)
+
+posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
+posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
+    map (mapeiaPosicao l a) [(x-1,y-1), (x, y-1), (x+1, y-1),
+                             (x-1,y) ,{-(x, y),-} (x+1,y)   ,
+                             (x-1,y+1), (x, y+1), (x+1, y+1)]
+
+mapeiaPosicao :: Int -> Int -> Posicao -> Posicao
+mapeiaPosicao largura altura (x, y) = (mod x largura, mod y altura)
+
+contarElemento :: Eq a => a -> [a] -> Int
+contarElemento e [] = 0
+contarElemento e (x:xs)
+    | e == x    = 1 + contarElemento e xs
+    | otherwise = contarElemento e xs
+
+valorCelula :: Tabuleiro -> Posicao -> Char
+valorCelula Tabuleiro{celulas=c,largura=l,altura=a} (x, y)
+    | x<l && y<a = c !! x !! y
+    | otherwise  = ' '
+
+totalVizinhosVivos :: Tabuleiro -> Posicao -> Int
+totalVizinhosVivos tabuleiro (x,y) = 
+    contarElemento 'v' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+
+totalVizinhosMortos :: Tabuleiro -> Posicao -> Int
+totalVizinhosMortos tabuleiro (x,y) = 
+    contarElemento 'm' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+
+totalVizinhosZumbis :: Tabuleiro -> Posicao -> Int
+totalVizinhosZumbis tabuleiro (x,y) = 
+    contarElemento 'z' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+
+geraNovoTabuleiro :: Tabuleiro -> Tabuleiro
+geraNovoTabuleiro Tabuleiro {celulas=c,largura=l,altura=a} =
+    Tabuleiro {celulas = [['a']],largura=l,altura=a}
+    -- substituir por: zumbi < mortos < vivos
+
+iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
+iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
+    | i == iMaximo                                    = tabuleiroNovo
+    | celulas tabuleiroAtual == celulas tabuleiroNovo = tabuleiroNovo
+    | otherwise                                       =
+        iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
+
+
+
+
+-- main :: IO ()
+-- main = someFunc
+-- main = mapM_ process . takeWhile (/= "q") . lines =<< getContents
+--   where process line = do -- whatever you like, e.g.
+--                           putStrLn line
+
+main = do 
+    print (contarElemento 'a' "abracadabra")
+
 
 {- SECTION - Entrada e Saida
 NOTE - pegar o tabuleiro definido pelo usuario
