@@ -50,6 +50,32 @@ totalVizinhosZumbis :: Tabuleiro -> Posicao -> Int
 totalVizinhosZumbis tabuleiro (x,y) =
     contarElemento valorCelulaZumbi (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
 
+condicaoReproducao :: Tabuleiro -> Posicao -> Bool
+condicaoReproducao t0 pos =
+    (valorCelulaMorta == valorCelula t0 pos) &&
+    (totalVizinhosVivos t0 pos == 3)
+
+condicaoInfeccao :: Tabuleiro -> Posicao -> Bool
+condicaoInfeccao t0 pos =
+    (valorCelulaViva == valorCelula t0 pos) &&
+    (totalVizinhosZumbis t0 pos > 0)
+
+condicaoSubpopulacao :: Tabuleiro -> Posicao -> Bool
+condicaoSubpopulacao t0 pos =
+    (valorCelulaViva == valorCelula t0 pos) &&
+    (totalVizinhosVivos t0 pos < 2) &&
+    (totalVizinhosZumbis t0 pos == 0)
+
+condicaoSuperpopulacao :: Tabuleiro -> Posicao -> Bool
+condicaoSuperpopulacao t0 pos =
+    (valorCelulaViva == valorCelula t0 pos) &&
+    (totalVizinhosVivos t0 pos > 3) &&
+    (totalVizinhosZumbis t0 pos == 0)
+
+condicaoInanicao :: Tabuleiro -> Posicao -> Bool
+condicaoInanicao t0 pos =
+    (valorCelulaZumbi == valorCelula t0 pos) &&
+    (totalVizinhosVivos t0 pos == 0)
 
 geraNovoTabuleiro :: Tabuleiro -> Tabuleiro
 geraNovoTabuleiro Tabuleiro {celulas=c,largura=l,altura=a} =
