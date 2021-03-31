@@ -39,16 +39,17 @@ valorCelula Tabuleiro{celulas=c,largura=l,altura=a} (x, y)
     | otherwise  = ' '
 
 totalVizinhosVivos :: Tabuleiro -> Posicao -> Int
-totalVizinhosVivos tabuleiro (x,y) = 
-    contarElemento 'v' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+totalVizinhosVivos tabuleiro (x,y) =
+    contarElemento valorCelulaViva (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
 
 totalVizinhosMortos :: Tabuleiro -> Posicao -> Int
-totalVizinhosMortos tabuleiro (x,y) = 
-    contarElemento 'm' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+totalVizinhosMortos tabuleiro (x,y) =
+    contarElemento valorCelulaMorta (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
 
 totalVizinhosZumbis :: Tabuleiro -> Posicao -> Int
-totalVizinhosZumbis tabuleiro (x,y) = 
-    contarElemento 'z' (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+totalVizinhosZumbis tabuleiro (x,y) =
+    contarElemento valorCelulaZumbi (map (valorCelula tabuleiro) (posicoesVizinhas tabuleiro (x,y)))
+
 
 geraNovoTabuleiro :: Tabuleiro -> Tabuleiro
 geraNovoTabuleiro Tabuleiro {celulas=c,largura=l,altura=a} =
