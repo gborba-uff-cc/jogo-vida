@@ -84,9 +84,9 @@ geraNovoTabuleiro Tabuleiro {celulas=c,largura=l,altura=a} =
 
 iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
-    | i == iMaximo                                    = tabuleiroNovo
+    | i >= iMaximo = tabuleiroNovo
     | celulas tabuleiroAtual == celulas tabuleiroNovo = tabuleiroNovo
-    | otherwise                                       =
+    | otherwise =
         iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
 
