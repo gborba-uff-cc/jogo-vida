@@ -9,6 +9,15 @@ data Tabuleiro = Tabuleiro
     , altura  :: Int
     } deriving (Show)
 
+valorCelulaViva :: Char
+valorCelulaViva = 'v'
+
+valorCelulaMorta :: Char
+valorCelulaMorta = 'm'
+
+valorCelulaZumbi :: Char
+valorCelulaZumbi = 'z'
+
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
     map (mapeiaPosicao l a) [(x-1,y-1), (x, y-1), (x+1, y-1),
