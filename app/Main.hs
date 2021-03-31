@@ -77,10 +77,27 @@ condicaoInanicao t0 pos =
     (valorCelulaZumbi == valorCelula t0 pos) &&
     (totalVizinhosVivos t0 pos == 0)
 
+processaCelulasLinha :: Tabuleiro -> Posicao -> [Char]
+processaCelulasLinha t0 (x,y)
+    | x >= largura t0 = []
+    | condicaoReproducao t0 (x,y) = valorCelulaViva:processaCelulasLinha t0 (x+1,y)
+    | condicaoInfeccao t0 (x,y) = valorCelulaZumbi:processaCelulasLinha t0 (x+1,y)
+    | condicaoSubpopulacao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
+    | condicaoSuperpopulacao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
+    | condicaoInanicao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
+    | otherwise = [] -- desnecessario
+
+processaLinhasTabuleiro :: Tabuleiro -> Posicao -> [[Char]]
+processaLinhasTabuleiro t0 (x, y)
+    | y >= altura t0 = []
+    | otherwise = processaCelulasLinha t0 (x,y):processaLinhasTabuleiro t0 (x,y+1)
+
 geraNovoTabuleiro :: Tabuleiro -> Tabuleiro
-geraNovoTabuleiro Tabuleiro {celulas=c,largura=l,altura=a} =
-    Tabuleiro {celulas = [['a']],largura=l,altura=a}
-    -- substituir por: zumbi < mortos < vivos
+geraNovoTabuleiro t0 = Tabuleiro {
+    celulas=processaLinhasTabuleiro t0 (0,0),
+    largura=largura t0,
+    altura=altura t0
+}
 
 iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
