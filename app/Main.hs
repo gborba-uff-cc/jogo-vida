@@ -106,8 +106,9 @@ iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
     | otherwise =
         iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
-
-
+executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
+-- executaJogoVida tabuleiro iMaximo = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altura=0} tabuleiro 0 iMaximo
+executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altura=0} tabuleiro 0
 
 -- main :: IO ()
 -- main = someFunc
@@ -115,9 +116,16 @@ iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
 --   where process line = do -- whatever you like, e.g.
 --                           putStrLn line
 
-main = do 
-    print (contarElemento 'a' "abracadabra")
+-- main = do 
+--     print (contarElemento 'a' "abracadabra")
 
+main = do
+    let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
+    let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
+    let tabuleiroFinal = iteraTabuleiro t0 t1 0 2
+    -- let t  = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
+    -- let tabuleiroFinal = executaJogoVida t 2
+    print tabuleiroFinal
 
 {- SECTION - Entrada e Saida
 NOTE - pegar o tabuleiro definido pelo usuario
