@@ -85,7 +85,7 @@ processaCelulasLinha t0 (x,y)
     | condicaoSubpopulacao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
     | condicaoSuperpopulacao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
     | condicaoInanicao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
-    | otherwise = [] -- desnecessario
+    | otherwise = valorCelula t0 (x,y):processaCelulasLinha t0 (x+1,y)
 
 processaLinhasTabuleiro :: Tabuleiro -> Posicao -> [[Char]]
 processaLinhasTabuleiro t0 (x, y)
