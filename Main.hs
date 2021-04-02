@@ -30,13 +30,13 @@ posicaoDentroTabuleiro (x,y) =
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
-    Data.List.delete (x,y) $ Data.List.nub $ map (mapeiaPosicao l a)
+    Data.List.delete (x,y) $ Data.List.nub $ map (restringePosicao l a)
         [(x-1,y-1), (x, y-1), (x+1, y-1),
          (x-1,y) ,{-(x, y),-} (x+1,y)   ,
          (x-1,y+1), (x, y+1), (x+1, y+1)]
 
-mapeiaPosicao :: Int -> Int -> Posicao -> Posicao
-mapeiaPosicao largura altura (x, y) = (mod x largura, mod y altura)
+restringePosicao :: Int -> Int -> Posicao -> Posicao
+restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
 
 contarElemento :: Eq a => a -> [a] -> Int
 contarElemento e [] = 0
