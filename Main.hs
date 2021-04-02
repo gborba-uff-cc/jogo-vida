@@ -23,6 +23,10 @@ valorCelulaZumbi = 'z'
 valoresValidosCelula :: [Char]
 valoresValidosCelula = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
 
+posicaoDentroTabuleiro (x,y) =
+    0 <= x && x <= largura t0 &&
+    0 <= y && y <= altura t0
+
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
