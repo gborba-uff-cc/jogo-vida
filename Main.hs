@@ -20,8 +20,8 @@ valorCelulaMorta = ' '
 valorCelulaZumbi :: Char
 valorCelulaZumbi = 'z'
 
-valoresValidos :: [Char]
-valoresValidos = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
+valoresValidosCelula :: [Char]
+valoresValidosCelula = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
 
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
