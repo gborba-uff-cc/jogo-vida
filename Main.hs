@@ -115,6 +115,7 @@ iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
     | i >= iMaximo = tabuleiroNovo
     | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = tabuleiroNovo
+    | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
 executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
 executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulasTabuleiro=[[]],larguraTabuleiro=0,alturaTabuleiro=0} tabuleiro 0
