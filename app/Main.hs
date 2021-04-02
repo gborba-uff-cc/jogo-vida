@@ -1,7 +1,7 @@
 module Main where
 
 import Lib
-import qualified Data.List
+import qualified Data.List (delete, nub)
 
 type Posicao   = (Int ,Int)
 data Tabuleiro = Tabuleiro
