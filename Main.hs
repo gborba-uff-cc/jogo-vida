@@ -28,6 +28,9 @@ posicaoValida (x,y) =
     0 <= x && x <= larguraTabuleiro t0 &&
     0 <= y && y <= alturaTabuleiro t0
 
+restringePosicao :: Int -> Int -> Posicao -> Posicao
+restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
+
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
@@ -35,9 +38,6 @@ posicoesVizinhas Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
         [(x-1,y-1), (x, y-1), (x+1, y-1),
          (x-1,y) ,{-(x, y),-} (x+1,y)   ,
          (x-1,y+1), (x, y+1), (x+1, y+1)]
-
-restringePosicao :: Int -> Int -> Posicao -> Posicao
-restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
 
 contarElemento :: Eq a => a -> [a] -> Int
 contarElemento e [] = 0
