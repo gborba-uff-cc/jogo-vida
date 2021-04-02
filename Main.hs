@@ -1,6 +1,7 @@
 module Main where
 
 import Lib
+import Debug.Trace
 import qualified Data.List (delete, nub)
 
 type Posicao   = (Int ,Int)
@@ -14,13 +15,17 @@ valorCelulaViva :: Char
 valorCelulaViva = 'v'
 
 valorCelulaMorta :: Char
-valorCelulaMorta = 'm'
+valorCelulaMorta = ' '
 
 valorCelulaZumbi :: Char
 valorCelulaZumbi = 'z'
 
+valoresValidos :: [Char]
+valoresValidos = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
+
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
+    -- delete((x,y), listaSemRepeticao(listaVizinhos))
     Data.List.delete (x,y) $ Data.List.nub $ map (mapeiaPosicao l a)
         [(x-1,y-1), (x, y-1), (x+1, y-1),
          (x-1,y) ,{-(x, y),-} (x+1,y)   ,
@@ -37,6 +42,7 @@ contarElemento e (x:xs)
 
 valorCelula :: Tabuleiro -> Posicao -> Char
 valorCelula Tabuleiro{celulas=c,largura=l,altura=a} (x, y)
+--    | x<l && y<a = let valor = c !! x !! y in traceStack ("celulas: " ++ show c ++ ", largura : " ++ show l ++ ", caltura: " ++ show a ++ ", Posicao: " ++ show (x,y)) $ c !! x !! y
     | x<l && y<a = c !! x !! y
     | otherwise  = ' '
 
@@ -105,8 +111,8 @@ iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
     | i >= iMaximo = tabuleiroNovo
     | celulas tabuleiroAtual == celulas tabuleiroNovo = tabuleiroNovo
-    | otherwise =
-        iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
+    | otherwise = let resultado = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo in trace (show resultado ++ " i: " ++ show i) resultado
+    -- | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
 executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
 -- executaJogoVida tabuleiro iMaximo = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altura=0} tabuleiro 0 iMaximo
@@ -122,12 +128,12 @@ executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altu
 --     print (contarElemento 'a' "abracadabra")
 
 main = do
-    let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
-    let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
-    let tabuleiroFinal = iteraTabuleiro t0 t1 0 2
-    -- let t  = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
-    -- let tabuleiroFinal = executaJogoVida t 2
-    print tabuleiroFinal
+    -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
+    -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
+    -- let tabuleiroFinal = iteraTabuleiro t0 t1 0 2
+    let t  = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
+    let tabuleiroFinal = executaJogoVida t 2
+    print ("Tabuleiro apos as iteracoes: " ++ show tabuleiroFinal)
 
 {- SECTION - Entrada e Saida
 NOTE - pegar o tabuleiro definido pelo usuario
