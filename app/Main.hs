@@ -1,6 +1,7 @@
 module Main where
 
 import Lib
+import qualified Data.List
 
 type Posicao   = (Int ,Int)
 data Tabuleiro = Tabuleiro
@@ -20,9 +21,10 @@ valorCelulaZumbi = 'z'
 
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
-    map (mapeiaPosicao l a) [(x-1,y-1), (x, y-1), (x+1, y-1),
-                             (x-1,y) ,{-(x, y),-} (x+1,y)   ,
-                             (x-1,y+1), (x, y+1), (x+1, y+1)]
+    Data.List.delete (x,y) $ Data.List.nub $ map (mapeiaPosicao l a)
+        [(x-1,y-1), (x, y-1), (x+1, y-1),
+         (x-1,y) ,{-(x, y),-} (x+1,y)   ,
+         (x-1,y+1), (x, y+1), (x+1, y+1)]
 
 mapeiaPosicao :: Int -> Int -> Posicao -> Posicao
 mapeiaPosicao largura altura (x, y) = (mod x largura, mod y altura)
