@@ -6,9 +6,9 @@ import qualified Data.List (delete, nub)
 
 type Posicao   = (Int ,Int)
 data Tabuleiro = Tabuleiro
-    { celulas :: [[Char]]
-    , largura :: Int
-    , altura  :: Int
+    { celulasTabuleiro :: [[Char]]
+    , larguraTabuleiro :: Int
+    , alturaTabuleiro  :: Int
     } deriving (Show)
 
 valorCelulaViva :: Char
@@ -23,12 +23,11 @@ valorCelulaZumbi = 'z'
 valoresValidosCelula :: [Char]
 valoresValidosCelula = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
 
-posicaoDentroTabuleiro (x,y) =
-    0 <= x && x <= largura t0 &&
-    0 <= y && y <= altura t0
+    0 <= x && x <= larguraTabuleiro t0 &&
+    0 <= y && y <= alturaTabuleiro t0
 
 posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
-posicoesVizinhas Tabuleiro {largura=l,altura=a} (x, y) =
+posicoesVizinhas Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
     Data.List.delete (x,y) $ Data.List.nub $ map (restringePosicao l a)
         [(x-1,y-1), (x, y-1), (x+1, y-1),
@@ -45,8 +44,7 @@ contarElemento e (x:xs)
     | otherwise = contarElemento e xs
 
 valorCelula :: Tabuleiro -> Posicao -> Char
-valorCelula Tabuleiro{celulas=c,largura=l,altura=a} (x, y)
---    | x<l && y<a = let valor = c !! x !! y in traceStack ("celulas: " ++ show c ++ ", largura : " ++ show l ++ ", caltura: " ++ show a ++ ", Posicao: " ++ show (x,y)) $ c !! x !! y
+valorCelula Tabuleiro{celulasTabuleiro=c,larguraTabuleiro=l,alturaTabuleiro=a} (x, y)
     | x<l && y<a = c !! x !! y
     | otherwise  = ' '
 
@@ -91,7 +89,7 @@ condicaoInanicao t0 pos =
 
 processaCelulasLinha :: Tabuleiro -> Posicao -> [Char]
 processaCelulasLinha t0 (x,y)
-    | x >= largura t0 = []
+    | x >= larguraTabuleiro t0 = []
     | condicaoReproducao t0 (x,y) = valorCelulaViva:processaCelulasLinha t0 (x+1,y)
     | condicaoInfeccao t0 (x,y) = valorCelulaZumbi:processaCelulasLinha t0 (x+1,y)
     | condicaoSubpopulacao t0 (x,y) = valorCelulaMorta:processaCelulasLinha t0 (x+1,y)
@@ -101,26 +99,23 @@ processaCelulasLinha t0 (x,y)
 
 processaLinhasTabuleiro :: Tabuleiro -> Posicao -> [[Char]]
 processaLinhasTabuleiro t0 (x, y)
-    | y >= altura t0 = []
+    | y >= alturaTabuleiro t0 = []
     | otherwise = processaCelulasLinha t0 (x,y):processaLinhasTabuleiro t0 (x,y+1)
 
 geraNovoTabuleiro :: Tabuleiro -> Tabuleiro
 geraNovoTabuleiro t0 = Tabuleiro {
-    celulas=processaLinhasTabuleiro t0 (0,0),
-    largura=largura t0,
-    altura=altura t0
+    celulasTabuleiro=processaLinhasTabuleiro t0 (0,0),
+    larguraTabuleiro=larguraTabuleiro t0,
+    alturaTabuleiro=alturaTabuleiro t0
 }
 
 iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
     | i >= iMaximo = tabuleiroNovo
-    | celulas tabuleiroAtual == celulas tabuleiroNovo = tabuleiroNovo
-    | otherwise = let resultado = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo in trace (show resultado ++ " i: " ++ show i) resultado
-    -- | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
+    | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = tabuleiroNovo
 
 executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
--- executaJogoVida tabuleiro iMaximo = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altura=0} tabuleiro 0 iMaximo
-executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulas=[[]],largura=0,altura=0} tabuleiro 0
+executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulasTabuleiro=[[]],larguraTabuleiro=0,alturaTabuleiro=0} tabuleiro 0
 
 -- main :: IO ()
 -- main = someFunc
@@ -135,7 +130,7 @@ main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
     -- let tabuleiroFinal = iteraTabuleiro t0 t1 0 2
-    let t  = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
+    let t  = Tabuleiro {celulasTabuleiro=["    ","  v ","    ","    "],larguraTabuleiro=4,alturaTabuleiro=4}
     let tabuleiroFinal = executaJogoVida t 2
     print ("Tabuleiro apos as iteracoes: " ++ show tabuleiroFinal)
 
