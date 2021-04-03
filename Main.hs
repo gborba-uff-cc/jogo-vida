@@ -133,14 +133,14 @@ executaJogoVida t =
         t
         0
 
--- main :: IO ()
--- main = someFunc
--- main = mapM_ process . takeWhile (/= "q") . lines =<< getContents
---   where process line = do -- whatever you like, e.g.
---                           putStrLn line
+tabuleiroParaString :: Tabuleiro -> Posicao -> [Char]
+tabuleiroParaString t (x,y)
+    | x <  larguraTabuleiro t && y < alturaTabuleiro t = valorCelula t (x,y):' ':tabuleiroParaString t (x+1,y)
+    | x == larguraTabuleiro t && y + 1 < alturaTabuleiro t = '\n':tabuleiroParaString t (0,y+1)
+    | otherwise = []
 
--- main = do 
---     print (contarElemento 'a' "abracadabra")
+imprimeTabuleiro :: Tabuleiro -> [Char]
+imprimeTabuleiro t = tabuleiroParaString t (0,0)
 
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
