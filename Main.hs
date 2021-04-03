@@ -24,9 +24,9 @@ valoresValidosCelula :: [Char]
 valoresValidosCelula = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
 
 posicaoValida :: Tabuleiro -> Posicao -> Bool
-posicaoValida (x,y) =
-    0 <= x && x <= larguraTabuleiro t0 &&
-    0 <= y && y <= alturaTabuleiro t0
+posicaoValida t (x,y) =
+    0 <= x && x <= larguraTabuleiro t &&
+    0 <= y && y <= alturaTabuleiro t
 
 restringePosicao :: Int -> Int -> Posicao -> Posicao
 restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
