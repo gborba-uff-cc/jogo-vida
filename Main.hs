@@ -133,14 +133,14 @@ executaJogoVida t =
         t
         0
 
-tabuleiroParaString :: Tabuleiro -> Posicao -> [Char]
-tabuleiroParaString t (x,y)
-    | x <  larguraTabuleiro t && y < alturaTabuleiro t = valorCelula t (x,y):' ':tabuleiroParaString t (x+1,y)
-    | x == larguraTabuleiro t && y + 1 < alturaTabuleiro t = '\n':tabuleiroParaString t (0,y+1)
+montaStringTabuleiro :: Tabuleiro -> Posicao -> [Char]
+montaStringTabuleiro t (x,y)
+    | x <  larguraTabuleiro t && y < alturaTabuleiro t = valorCelula t (x,y):' ':montaStringTabuleiro t (x+1,y)
+    | x == larguraTabuleiro t && y + 1 < alturaTabuleiro t = '\n':montaStringTabuleiro t (0,y+1)
     | otherwise = []
 
-imprimeTabuleiro :: Tabuleiro -> [Char]
-imprimeTabuleiro t = tabuleiroParaString t (0,0)
+tabuleiroParaString :: Tabuleiro -> [Char]
+tabuleiroParaString t = montaStringTabuleiro t (0,0)
 
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
