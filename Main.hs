@@ -45,10 +45,15 @@ contarElemento e (x:xs)
     | e == x    = 1 + contarElemento e xs
     | otherwise = contarElemento e xs
 
+-- precisa chamar retringePosicao antes
 valorCelula :: Tabuleiro -> Posicao -> Char
-valorCelula Tabuleiro{celulasTabuleiro=c,larguraTabuleiro=l,alturaTabuleiro=a} (x, y)
-    | x<l && y<a = c !! x !! y
-    | otherwise  = ' '
+valorCelula Tabuleiro {
+    celulasTabuleiro=c,
+    larguraTabuleiro=l,
+    alturaTabuleiro=a}
+    (x, y) = c !! y !! x
+--    | x<l && y<a = let valor = c !! x !! y in traceStack ("celulas: " ++ show c ++ ", larguraTabuleiro : " ++ show l ++ ", calturaTabuleiro: " ++ show a ++ ", Posicao: " ++ show (x,y)) $ c !! x !! y
+--    | otherwise  = ' '
 
 totalVizinhosVivos :: Tabuleiro -> Posicao -> Int
 totalVizinhosVivos tabuleiro (x,y) =
