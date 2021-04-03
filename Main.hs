@@ -123,7 +123,15 @@ iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
     | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
 executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
-executaJogoVida tabuleiro = iteraTabuleiro Tabuleiro{celulasTabuleiro=[[]],larguraTabuleiro=0,alturaTabuleiro=0} tabuleiro 0
+-- executaJogoVida tabuleiro iMaximo = iteraTabuleiro Tabuleiro{celulasTabuleiro=[[]],larguraTabuleiro=0,alturaTabuleiro=0} tabuleiro 0 iMaximo
+executaJogoVida t =
+    iteraTabuleiro
+        Tabuleiro {
+            celulasTabuleiro=[[]],
+            larguraTabuleiro=0,
+            alturaTabuleiro=0}
+        t
+        0
 
 -- main :: IO ()
 -- main = someFunc
