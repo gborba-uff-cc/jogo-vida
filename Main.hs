@@ -152,6 +152,7 @@ removeCharsIndesejados :: [Char] -> [Char]
 removeCharsIndesejados = filter (`elem` valoresValidosCelula)
 
 textoParaMatriz :: [Char] -> [[Char]]
+textoParaMatriz [] = [[]]
 textoParaMatriz texto = map removeCharsIndesejados (lines $ map Data.Char.toUpper texto)
 
 matrizDoArquivo :: FilePath -> IO [String]
