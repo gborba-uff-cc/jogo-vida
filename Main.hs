@@ -144,6 +144,12 @@ _tabuleiroParaString t (x,y)
 tabuleiroParaString :: Tabuleiro -> [Char]
 tabuleiroParaString t = _tabuleiroParaString t (0,0)
 
+removeCharsIndesejados :: [Char] -> [Char]
+removeCharsIndesejados [] = []
+removeCharsIndesejados (x:xs)
+    | x `elem` valoresValidosCelula = x:removeCharsIndesejados xs
+    | x `notElem` valoresValidosCelula = removeCharsIndesejados xs
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
