@@ -180,7 +180,7 @@ adquireInput :: IO (String, String)
 adquireInput = do
     putStrLn "Jogo da Vida"
     putStrLn (
-        "OBS.1: Cada linha do arquivo de entrada deve representar uma linha do tabuleiro.\n" ++ 
+        "OBS.1: Cada linha do arquivo de entrada deve representar uma linha do tabuleiro.\n" ++
         "OBS.2: No arquivo de entrada:\n" ++
         "    " ++ valorCelulaViva:" representa uma celula viva\n" ++
         "    " ++ valorCelulaMorta:" representa uma celula morta\n" ++
