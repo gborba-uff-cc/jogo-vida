@@ -194,7 +194,7 @@ main = do
     m <- matrizDoArquivo nArquivo
     let tabuleiro = criaTabuleiro m
     let tabuleiroFinal = executaJogoVida tabuleiro $ read maxIteracoes
-    putStrLn ("Tabuleiro após as iterações)):\n" ++ tabuleiroParaString tabuleiroFinal)
+    putStrLn ("Tabuleiro após as iterações:\n" ++ tabuleiroParaString tabuleiroFinal)
 
 {- SECTION - Entrada e Saida
 NOTE - pegar o tabuleiro definido pelo usuario
