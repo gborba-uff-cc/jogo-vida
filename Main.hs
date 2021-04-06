@@ -12,13 +12,13 @@ data Tabuleiro = Tabuleiro
     } deriving (Show)
 
 valorCelulaViva :: Char
-valorCelulaViva = 'v'
+valorCelulaViva = 'V'
 
 valorCelulaMorta :: Char
-valorCelulaMorta = ' '
+valorCelulaMorta = 'M'
 
 valorCelulaZumbi :: Char
-valorCelulaZumbi = 'z'
+valorCelulaZumbi = 'Z'
 
 valoresValidosCelula :: [Char]
 valoresValidosCelula = [valorCelulaViva,valorCelulaMorta,valorCelulaZumbi]
