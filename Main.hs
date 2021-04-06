@@ -1,8 +1,7 @@
 module Main where
 
-import Lib
-import Debug.Trace
-import qualified Data.List (delete, nub)
+import qualified Data.List (delete, length, nub, partition)
+import qualified Data.Char (toUpper)
 
 type Posicao   = (Int ,Int)
 data Tabuleiro = Tabuleiro
