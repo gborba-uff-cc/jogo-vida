@@ -144,10 +144,8 @@ tabuleiroParaString :: Tabuleiro -> [Char]
 tabuleiroParaString t = _tabuleiroParaString t (0,0)
 
 removeCharsIndesejados :: [Char] -> [Char]
-removeCharsIndesejados [] = []
-removeCharsIndesejados (x:xs)
-    | x `elem` valoresValidosCelula = x:removeCharsIndesejados xs
-    | x `notElem` valoresValidosCelula = removeCharsIndesejados xs
+-- removeCharsIndesejados l = filter (`elem` valoresValidosCelula) l
+removeCharsIndesejados = filter (`elem` valoresValidosCelula)
 
 textoParaMatriz :: [Char] -> [[Char]]
 textoParaMatriz texto = map removeCharsIndesejados (lines $ map Data.Char.toUpper texto)
