@@ -153,6 +153,12 @@ removeCharsIndesejados (x:xs)
 textoParaMatriz :: [Char] -> [[Char]]
 textoParaMatriz texto = map removeCharsIndesejados (lines $ map Data.Char.toUpper texto)
 
+matrizDoArquivo :: FilePath -> IO [String]
+matrizDoArquivo nArquivo = do
+    conteudo <- readFile nArquivo
+    let m = textoParaMatriz conteudo
+    return m
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
