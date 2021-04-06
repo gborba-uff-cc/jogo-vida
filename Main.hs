@@ -3,12 +3,12 @@ module Main where
 import qualified Data.List (delete, length, nub, partition)
 import qualified Data.Char (toUpper)
 
-type Posicao   = (Int ,Int)
-data Tabuleiro = Tabuleiro
-    { celulasTabuleiro :: [[Char]]
-    , larguraTabuleiro :: Int
-    , alturaTabuleiro  :: Int
-    } deriving (Show)
+type Posicao = (Int ,Int)
+data Tabuleiro = Tabuleiro {
+    celulasTabuleiro :: [[Char]],
+    larguraTabuleiro :: Int,
+    alturaTabuleiro  :: Int}
+    deriving (Show)
 
 valorCelulaViva :: Char
 valorCelulaViva = 'V'
