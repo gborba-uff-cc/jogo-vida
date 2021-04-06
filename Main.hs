@@ -150,6 +150,9 @@ removeCharsIndesejados (x:xs)
     | x `elem` valoresValidosCelula = x:removeCharsIndesejados xs
     | x `notElem` valoresValidosCelula = removeCharsIndesejados xs
 
+textoParaMatriz :: [Char] -> [[Char]]
+textoParaMatriz texto = map removeCharsIndesejados (lines $ map Data.Char.toUpper texto)
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
