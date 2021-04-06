@@ -168,6 +168,12 @@ matrizValida m0 = all (\ l0 -> celulasValidas l0 && tamanhoValido l0) m0
           tamanhoLinha l2 = Data.List.length l2
           tamanhoHead = tamanhoLinha $ head m0
 
+criaTabuleiro :: [[Char]] -> Tabuleiro
+criaTabuleiro m = Tabuleiro {
+    celulasTabuleiro=m,
+    larguraTabuleiro=Data.List.length m,
+    alturaTabuleiro=Data.List.length $ head m}
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
