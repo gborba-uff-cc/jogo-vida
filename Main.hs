@@ -190,12 +190,11 @@ adquireInput = do
     return (nArquivo, maxIteracoes)
 
 main = do
-    -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
-    -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
-    -- let tabuleiroFinal = iteraTabuleiro t0 t1 0 2
-    let t  = Tabuleiro {celulasTabuleiro=["    ","  v ","    ","    "],larguraTabuleiro=4,alturaTabuleiro=4}
-    let tabuleiroFinal = executaJogoVida t 2
-    print ("Tabuleiro apos as iteracoes: " ++ show tabuleiroFinal)
+    (nArquivo, maxIteracoes) <- adquireInput
+    m <- matrizDoArquivo nArquivo
+    let tabuleiro = criaTabuleiro m
+    let tabuleiroFinal = executaJogoVida tabuleiro $ read maxIteracoes
+    putStrLn ("Tabuleiro após as iterações)):\n" ++ tabuleiroParaString tabuleiroFinal)
 
 {- SECTION - Entrada e Saida
 NOTE - pegar o tabuleiro definido pelo usuario
