@@ -159,6 +159,15 @@ matrizDoArquivo nArquivo = do
     let m = textoParaMatriz conteudo
     return m
 
+matrizValida :: [[Char]] -> Bool
+matrizValida [] = False
+matrizValida m0 = all (\ l0 -> celulasValidas l0 && tamanhoValido l0) m0
+    where celulasValidas l0 = null $ snd $ Data.List.partition (`elem` valoresValidosCelula) l0
+          tamanhoValido [] = False
+          tamanhoValido l1 = (==tamanhoHead) $ tamanhoLinha l1
+          tamanhoLinha l2 = Data.List.length l2
+          tamanhoHead = tamanhoLinha $ head m0
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
