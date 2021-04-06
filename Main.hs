@@ -134,14 +134,18 @@ executaJogoVida t =
 
 -- FUNCOES PARA INTERACAO COM USUARIO
 
-_tabuleiroParaString :: Tabuleiro -> Posicao -> [Char]
-_tabuleiroParaString t (x,y)
-    | x <  larguraTabuleiro t && y < alturaTabuleiro t = valorCelula t (x,y):' ':_tabuleiroParaString t (x+1,y)
-    | x == larguraTabuleiro t && y + 1 < alturaTabuleiro t = '\n':_tabuleiroParaString t (0,y+1)
-    | otherwise = []
+linhaMatrizParaTexto :: [Char] -> [Char]
+linhaMatrizParaTexto [] = ""
+linhaMatrizParaTexto [c1, c2] = [c1, ' ', c2]
+linhaMatrizParaTexto (c1:c2:cs) = c1:' ':linhaMatrizParaTexto (c2:cs)
+
+matrizParaTexto :: [[Char]] -> [Char]
+matrizParaTexto [] = ""
+matrizParaTexto [l1, l2] = linhaMatrizParaTexto l1 ++ "\n" ++ linhaMatrizParaTexto l2
+matrizParaTexto (l1:ls) = linhaMatrizParaTexto l1 ++ "\n" ++ matrizParaTexto ls
 
 tabuleiroParaString :: Tabuleiro -> [Char]
-tabuleiroParaString t = _tabuleiroParaString t (0,0)
+tabuleiroParaString t = matrizParaTexto $ celulasTabuleiro t
 
 removeCharsIndesejados :: [Char] -> [Char]
 -- removeCharsIndesejados l = filter (`elem` valoresValidosCelula) l
