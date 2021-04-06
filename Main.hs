@@ -174,6 +174,21 @@ criaTabuleiro m = Tabuleiro {
     larguraTabuleiro=Data.List.length m,
     alturaTabuleiro=Data.List.length $ head m}
 
+adquireInput :: IO (String, String)
+adquireInput = do
+    putStrLn "Jogo da Vida"
+    putStrLn (
+        "OBS.1: Cada linha do arquivo de entrada deve representar uma linha do tabuleiro.\n" ++ 
+        "OBS.2: No arquivo de entrada:\n" ++
+        "    " ++ valorCelulaViva:" representa uma celula viva\n" ++
+        "    " ++ valorCelulaMorta:" representa uma celula morta\n" ++
+        "    " ++ valorCelulaZumbi:" representa uma celula zumbi\n" ++
+        "Digite o nome de um arquivo que contém o tabuleiro inicial.")
+    nArquivo <- getLine
+    putStrLn "Entre com o numero máximo de iterações que serão realizadas:"
+    maxIteracoes <- getLine
+    return (nArquivo, maxIteracoes)
+
 main = do
     -- let t0 = Tabuleiro {celulas=[[]],largura=0,altura=0}
     -- let t1 = Tabuleiro {celulas=["    ","  v ","    ","    "],largura=4,altura=4}
