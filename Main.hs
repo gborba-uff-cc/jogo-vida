@@ -1,7 +1,7 @@
 module Main where
 
 import qualified Data.List (delete, length, nub, partition)
-import qualified Data.Char (toUpper)
+import qualified Data.Char (toUpper,toLower)
 
 type Posicao = (Int ,Int)
 data Tabuleiro = Tabuleiro {
@@ -183,10 +183,10 @@ adquireInput = do
     putStrLn (
         "OBS.1: Cada linha do arquivo de entrada deve representar uma linha do tabuleiro.\n" ++
         "OBS.2: No arquivo de entrada:\n" ++
-        "    " ++ valorCelulaViva:" representa uma celula viva\n" ++
-        "    " ++ valorCelulaMorta:" representa uma celula morta\n" ++
-        "    " ++ valorCelulaZumbi:" representa uma celula zumbi\n" ++
-        "Digite o nome de um arquivo que contém o tabuleiro inicial.")
+        "    " ++ Data.Char.toUpper valorCelulaViva:" (ou " ++ Data.Char.toLower valorCelulaViva:") representa uma celula viva\n" ++
+        "    " ++ Data.Char.toUpper valorCelulaMorta:" (ou " ++ Data.Char.toLower valorCelulaMorta:") representa uma celula morta\n" ++
+        "    " ++ Data.Char.toUpper valorCelulaZumbi:" (ou " ++ Data.Char.toLower valorCelulaZumbi:") representa uma celula zumbi\n" ++
+        "Digite o nome de um arquivo de texto que contém o tabuleiro inicial.")
     nArquivo <- getLine
     putStrLn "Entre com o numero máximo de iterações que serão realizadas:"
     maxIteracoes <- getLine
