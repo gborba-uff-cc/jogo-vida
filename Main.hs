@@ -174,8 +174,8 @@ matrizValida m0 = all (\ l0 -> celulasValidas l0 && tamanhoValido l0) m0
 criaTabuleiro :: [[Char]] -> Tabuleiro
 criaTabuleiro m = Tabuleiro {
     celulasTabuleiro=m,
-    larguraTabuleiro=Data.List.length m,
-    alturaTabuleiro=Data.List.length $ head m}
+    larguraTabuleiro=Data.List.length $ head m,
+    alturaTabuleiro=Data.List.length m}
 
 adquireInput :: IO (String, String)
 adquireInput = do
