@@ -195,9 +195,12 @@ adquireInput = do
 main = do
     (nArquivo, maxIteracoes) <- adquireInput
     m <- matrizDoArquivo nArquivo
-    let tabuleiro = criaTabuleiro m
-    let tabuleiroFinal = executaJogoVida tabuleiro $ read maxIteracoes
-    putStrLn ("Tabuleiro após as iterações:\n" ++ tabuleiroParaString tabuleiroFinal)
+    if matrizValida m then do
+        let tabuleiro = criaTabuleiro m
+        let tabuleiroFinal = executaJogoVida tabuleiro $ read maxIteracoes
+        putStrLn ("Tabuleiro após as iterações:\n" ++ tabuleiroParaString tabuleiroFinal)
+    else
+        putStrLn "A matriz lida não forma um tabuleiro válido."
 
 {- SECTION - Regras
 NOTE - reproducao     - morta -> viva : =3 celulas vivas adjacentes
