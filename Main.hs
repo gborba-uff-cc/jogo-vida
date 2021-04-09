@@ -163,13 +163,13 @@ matrizParaTexto (l1:ls) = linhaMatrizParaTexto l1 ++ "\n" ++ matrizParaTexto ls
 tabuleiroParaString :: Tabuleiro -> [Char]
 tabuleiroParaString t = matrizParaTexto $ celulasTabuleiro t
 
-removeCharsIndesejados :: [Char] -> [Char]
--- removeCharsIndesejados l = filter (`elem` valoresValidosCelula) l
-removeCharsIndesejados = filter (`elem` valoresValidosCelula)
+descartaCharsIndesejados :: [Char] -> [Char]
+-- descartaCharsIndesejados l = filter (`elem` valoresValidosCelula) l
+descartaCharsIndesejados = filter (`elem` valoresValidosCelula)
 
 textoParaMatriz :: [Char] -> [[Char]]
 textoParaMatriz [] = [[]]
-textoParaMatriz texto = map removeCharsIndesejados (lines $ map Data.Char.toUpper texto)
+textoParaMatriz texto = map descartaCharsIndesejados (lines $ map Data.Char.toUpper texto)
 
 matrizDoArquivo :: FilePath -> IO [String]
 matrizDoArquivo nArquivo = do
