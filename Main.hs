@@ -41,6 +41,14 @@ posicoesVizinhasTabuleiroToroidal Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
     Data.List.delete (x,y) $ Data.List.nub $ map (restringePosicao l a) $ possiveisPosicoesVizinhas (x,y)
 
+descartaPosicaoInvalida :: Int -> Int -> [Posicao] -> [Posicao]
+-- descartaPosicaoInvalida valMaxX valMaxY posicoes = filter (\(x, y) -> 0 <= x && x < valMaxX && 0 <= y && y < valMaxY) posicoes
+descartaPosicaoInvalida valMaxX valMaxY = filter (\(x,y) -> 0 <= x && x < valMaxX && 0 <= y && y < valMaxY)
+
+posicoesVizinhasTabuleiroRetangular :: Tabuleiro -> Posicao -> [Posicao]
+posicoesVizinhasTabuleiroRetangular Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
+    descartaPosicaoInvalida l a (possiveisPosicoesVizinhas (x,y))
+
 contarElemento :: Eq a => a -> [a] -> Int
 contarElemento e [] = 0
 contarElemento e (x:xs)
