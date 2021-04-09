@@ -36,8 +36,8 @@ possiveisPosicoesVizinhas (x, y) =
 restringePosicao :: Int -> Int -> Posicao -> Posicao
 restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
 
-posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
-posicoesVizinhas Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
+posicoesVizinhasTabuleiroToroidal :: Tabuleiro -> Posicao -> [Posicao]
+posicoesVizinhasTabuleiroToroidal Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x,y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
     Data.List.delete (x,y) $ Data.List.nub $ map (restringePosicao l a) $ possiveisPosicoesVizinhas (x,y)
 
