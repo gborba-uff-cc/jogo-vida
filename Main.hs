@@ -210,7 +210,7 @@ adquireInput = do
     nArquivo <- getLine
     putStrLn "Entre com o numero máximo de iterações que serão realizadas:"
     maxIteracoes <- getLine
-    return (nArquivo, maxIteracoes)
+    return (nArquivo, seStringVazia maxIteracoes "0")
 
 main = do
     (nArquivo, maxIteracoes) <- adquireInput
