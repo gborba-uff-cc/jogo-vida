@@ -33,9 +33,17 @@ possiveisPosicoesVizinhas (x, y) =
      (x-1,y) {-,(x, y)-}, (x+1,y)   ,
      (x-1,y+1), (x, y+1), (x+1, y+1)]
 
+{-
+Funcao que faz mapeia as celulas de fora para dentro do tabuleiro.
+Por exemplo a celula (5,5) em um tabuleiro 4x4 seria mapeado para (0,0)
+-}
 restringePosicao :: Int -> Int -> Posicao -> Posicao
 restringePosicao valMaxX valMaxY (x, y) = (x `mod` valMaxX, y `mod` valMaxY)
 
+{-
+Funcao que retorna a lista de vizinhos de uma celula em tabuleiro toroidal, onde
+o topo e fundo são ligados assim como o lado direita é ligado com o lado esquerdo
+-}
 posicoesVizinhasTabuleiroToroidal :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhasTabuleiroToroidal Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x,y) =
     -- delete((x,y), listaSemRepeticao(listaVizinhos))
@@ -59,14 +67,17 @@ contarElemento e (x:xs)
     | e == x    = 1 + contarElemento e xs
     | otherwise = contarElemento e xs
 
--- precisa chamar retringePosicao antes
+-- precisa garantir a chamada em valores validos
 valorCelula :: Tabuleiro -> Posicao -> Char
 valorCelula Tabuleiro {
     celulasTabuleiro=c,
     larguraTabuleiro=l,
     alturaTabuleiro=a}
     (x, y) = c !! y !! x
---    | x<l && y<a = let valor = c !! x !! y in traceStack ("celulas: " ++ show c ++ ", larguraTabuleiro : " ++ show l ++ ", calturaTabuleiro: " ++ show a ++ ", Posicao: " ++ show (x,y)) $ c !! x !! y
+--    | x<l && y<a = let valor = c !! x !! y in traceStack (
+--         "celulas: " ++ show c ++ ", larguraTabuleiro : " ++ show l ++
+--         ", calturaTabuleiro: " ++ show a ++ ", Posicao: " ++ show (x,y))
+--         $ c !! x !! y
 --    | otherwise  = ' '
 
 totalVizinhosVivos :: Tabuleiro -> Posicao -> Int
