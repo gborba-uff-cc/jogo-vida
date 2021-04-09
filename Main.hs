@@ -192,6 +192,11 @@ criaTabuleiro m = Tabuleiro {
     larguraTabuleiro=Data.List.length $ head m,
     alturaTabuleiro=Data.List.length m}
 
+seStringVazia :: String -> String -> String
+seStringVazia s1 s2
+    | null s1 = s2
+    | otherwise = s1
+
 adquireInput :: IO (String, String)
 adquireInput = do
     putStrLn "Jogo da Vida"
