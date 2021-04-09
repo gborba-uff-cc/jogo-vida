@@ -141,13 +141,13 @@ geraNovoTabuleiro t0 = Tabuleiro {
     alturaTabuleiro=alturaTabuleiro t0
 }
 
-iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> Tabuleiro
+iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> (Tabuleiro, Int)
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
-    | i >= iMaximo = tabuleiroNovo
-    | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = tabuleiroNovo
+    | i >= iMaximo = (tabuleiroNovo, i)
+    | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = (tabuleiroNovo, i)
     | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
-executaJogoVida :: Tabuleiro -> Int -> Tabuleiro
+executaJogoVida :: Tabuleiro -> Int -> (Tabuleiro, Int)
 -- executaJogoVida tabuleiro iMaximo = iteraTabuleiro Tabuleiro{celulasTabuleiro=[[]],larguraTabuleiro=0,alturaTabuleiro=0} tabuleiro 0 iMaximo
 executaJogoVida t =
     iteraTabuleiro
@@ -228,10 +228,14 @@ main = do
     m <- matrizDoArquivo nArquivo
     if matrizValida m then do
         let tabuleiro = criaTabuleiro m
-        let tabuleiroFinal = executaJogoVida tabuleiro $ read maxIteracoes
-        putStrLn ("Tabuleiro após as iterações:\n" ++ tabuleiroParaString tabuleiroFinal)
-    else
+        let (tabuleiroFinal, nIteracoesFeitas) = executaJogoVida tabuleiro $ read maxIteracoes
+        putStrLn (
+            "\nO tabuleiro final, após " ++ show nIteracoesFeitas ++
+            " de " ++ maxIteracoes ++ " iteração/iterações foi:\n" ++
+            tabuleiroParaString tabuleiroFinal)
+    else do
         putStrLn "A matriz lida não forma um tabuleiro válido."
+        print m
 
 {- SECTION - Regras
 NOTE - reproducao     - morta -> viva : =3 celulas vivas adjacentes
