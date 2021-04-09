@@ -2,6 +2,8 @@ module Main where
 
 import qualified Data.List (delete, length, nub, partition)
 import qualified Data.Char (toUpper,toLower)
+import Control.Exception (catch)
+import System.IO.Error (isDoesNotExistError,isPermissionError)
 
 type Posicao = (Int ,Int)
 data Tabuleiro = Tabuleiro {
@@ -221,21 +223,30 @@ adquireInput = do
     nArquivo <- getLine
     putStrLn "Entre com o numero máximo de iterações que serão realizadas:"
     maxIteracoes <- getLine
+    putStrLn ""
     return (nArquivo, seStringVazia maxIteracoes "0")
 
-main = do
+tentaExecutar :: IO ()
+tentaExecutar = do
     (nArquivo, maxIteracoes) <- adquireInput
     m <- matrizDoArquivo nArquivo
     if matrizValida m then do
         let tabuleiro = criaTabuleiro m
         let (tabuleiroFinal, nIteracoesFeitas) = executaJogoVida tabuleiro $ read maxIteracoes
         putStrLn (
-            "\nO tabuleiro final, após " ++ show nIteracoesFeitas ++
-            " de " ++ maxIteracoes ++ " iteração/iterações foi:\n" ++
+            "O tabuleiro final foi, após " ++ show nIteracoesFeitas ++
+            " de " ++ maxIteracoes ++ " iteração/iterações:\n" ++
             tabuleiroParaString tabuleiroFinal)
-    else do
+    else
         putStrLn "A matriz lida não forma um tabuleiro válido."
-        print m
+
+pacificaExcecao :: IOError -> IO ()
+pacificaExcecao e
+    | isDoesNotExistError e = putStrLn "O arquivo com o nome dado não existe."
+    | isPermissionError e = putStrLn "Não há permissão para acessar o arquivo."
+    | otherwise = ioError e
+
+main = tentaExecutar `catch` pacificaExcecao
 
 {- SECTION - Regras
 NOTE - reproducao     - morta -> viva : =3 celulas vivas adjacentes
