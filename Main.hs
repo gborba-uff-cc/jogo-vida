@@ -49,6 +49,10 @@ posicoesVizinhasTabuleiroRetangular :: Tabuleiro -> Posicao -> [Posicao]
 posicoesVizinhasTabuleiroRetangular Tabuleiro {larguraTabuleiro=l,alturaTabuleiro=a} (x, y) =
     descartaPosicaoInvalida l a (possiveisPosicoesVizinhas (x,y))
 
+posicoesVizinhas :: Tabuleiro -> Posicao -> [Posicao]
+-- posicoesVizinhas = posicoesVizinhasTabuleiroToroidal
+posicoesVizinhas = posicoesVizinhasTabuleiroRetangular
+
 contarElemento :: Eq a => a -> [a] -> Int
 contarElemento e [] = 0
 contarElemento e (x:xs)
