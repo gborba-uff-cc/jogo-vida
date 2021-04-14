@@ -237,8 +237,8 @@ tentaExecutar = do
         let tabuleiro = criaTabuleiro m
         let (tabuleiroFinal, nIteracoesFeitas) = executaJogoVida tabuleiro $ read maxIteracoes
         putStrLn (
-            "O tabuleiro final foi, após " ++ show nIteracoesFeitas ++
-            " de " ++ maxIteracoes ++ " iteração/iterações:\n" ++
+            "O tabuleiro final, após " ++ show nIteracoesFeitas ++
+            " de " ++ maxIteracoes ++ " iteração/iterações é:\n" ++
             tabuleiroParaString tabuleiroFinal)
     else
         putStrLn "A matriz lida não forma um tabuleiro válido."
