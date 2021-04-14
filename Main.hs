@@ -257,5 +257,4 @@ NOTE - infeccao       - viva -> zumbi : >0 celulas zumbi adj.
 NOTE - subpopulacao   - viva -> morta : <2 celulas vivas adj. e 0 zumbi adj.
 NOTE - superpopulacao - viva -> morta : >3 celulas vivas adj. e 0 zumbi adj.
 NOTE - inanicao       - zumbi -> morta : =0 celulas vivas adj.
-TODO - Regras
 !SECTION -}
