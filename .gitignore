@@ -1,5 +1,15 @@
+# arquivos ignorados
 .vscode/
 *.txt
 *.hi
 *.o
 Main
+*.py
+
+# arquivos não ignorados
+!tReproducao.txt
+!tInfeccao.txt
+!tSubpopulacao.txt
+!tSuperpopulacao.txt
+!tInanicao.txt
+!tTeste.txt

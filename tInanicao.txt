@@ -1,0 +1,3 @@
+m m m | m m z | m z m
+m z m | z m m | m z m
+m m m | m m m | m z m
