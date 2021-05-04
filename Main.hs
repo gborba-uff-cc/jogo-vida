@@ -145,8 +145,8 @@ geraNovoTabuleiro t0 = Tabuleiro {
 
 iteraTabuleiro :: Tabuleiro -> Tabuleiro -> Int -> Int -> (Tabuleiro, Int)
 iteraTabuleiro tabuleiroAtual tabuleiroNovo i iMaximo
+    | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = (tabuleiroNovo, i-1)
     | i >= iMaximo = (tabuleiroNovo, i)
-    | celulasTabuleiro tabuleiroAtual == celulasTabuleiro tabuleiroNovo = (tabuleiroNovo, i)
     | otherwise = iteraTabuleiro tabuleiroNovo (geraNovoTabuleiro tabuleiroNovo) (i+1) iMaximo
 
 executaJogoVida :: Tabuleiro -> Int -> (Tabuleiro, Int)
