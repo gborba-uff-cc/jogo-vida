@@ -162,19 +162,7 @@ executaJogoVida t =
 
 -- FUNCOES PARA INTERACAO COM USUARIO
 
--- linhaMatrizParaTexto :: [Char] -> [Char]
--- linhaMatrizParaTexto [] = ""
--- linhaMatrizParaTexto [c1, c2] = [c1, ' ', c2]
--- linhaMatrizParaTexto (c1:c2:cs) = c1:' ':linhaMatrizParaTexto (c2:cs)
-
--- matrizParaTexto :: [[Char]] -> [Char]
--- matrizParaTexto [] = ""
--- matrizParaTexto [[]] = ""
--- matrizParaTexto [l1, l2] = linhaMatrizParaTexto l1 ++ "\n" ++ linhaMatrizParaTexto l2
--- matrizParaTexto (l1:ls) = linhaMatrizParaTexto l1 ++ "\n" ++ matrizParaTexto ls
-
 tabuleiroParaString :: Tabuleiro -> [Char]
--- tabuleiroParaString t = matrizParaTexto $ celulasTabuleiro t
 tabuleiroParaString t = linhas $ map espacos (celulasTabuleiro t)
     where espacos l = Data.List.intersperse ' ' l
           linhas l = Data.List.intercalate "\n" l
