@@ -2,7 +2,7 @@
 
 ## Sobre o programa
 
-Essa implementação do jogo da vida, pega um tabuleiro inicial e apresenta um tabuleiro final após iterar N vezes sobre o tabuleiro inicial ou até que não haja alteração entre dois tabuleiro consecutivos isto é, até que o tabuleiro atual seja igual ao tabuleiro anterior.
+Essa implementação do jogo da vida, pega um tabuleiro inicial e apresenta um tabuleiro final, o tabuleiro final  é alcançado após iterar N vezes sobre o tabuleiro inicial ou até que não haja alteração entre dois tabuleiro consecutivos isto é, até que o tabuleiro atual seja igual ao tabuleiro anterior.
 
 O arquivo de texto do tabuleiro não precisa necessáriamente ter uma formatação especifica, pois o programa lerá cada linha do arquivo de texto e filtrará todos os caracteres que são valores válidos para células, assim a linha "em um apocalipse zumbi voce sobreviveria por muito tempo" se tornam em uma linha de 9 células [m,m,z,m,v,v,v,m,m] no tabuleiro e, a linha "mmVmv mvMZzm vm" se torna em uma linha de 13 celulas [m,m,v,m,v,m,v,m,z,z,m,v,m].
 
@@ -41,7 +41,7 @@ gch Main.hs
 > Quando o programa pedir o nome do arquivo que contém o tabuleiro.
 
 ```text
-tabuleiro.txt
+tTeste.txt
 ```
 
 > Quando o programa pedir o número máximo de iterações sobre o tabuleiro.
